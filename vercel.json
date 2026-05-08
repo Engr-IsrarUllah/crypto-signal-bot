@@ -6,13 +6,5 @@
       "path": "/api/scanner",
       "schedule": "*/15 * * * *"
     }
-  ],
-  "functions": {
-    "api/scanner.js": {
-      "maxDuration": 300
-    },
-    "api/test.js": {
-      "maxDuration": 10
-    }
-  }
+  ]
 }

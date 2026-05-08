@@ -15,13 +15,13 @@ module.exports = async (req, res) => {
     try {
         console.log("Fetching all USDT symbols...");
         const allSymbols = await getAllSymbols();
-        // Take up to 500 symbols or all if less
-        const symbolsToScan = allSymbols.slice(0, 500); 
+        // Limit to 150 symbols to ensure it finishes within Vercel's 10s Hobby limit
+        const symbolsToScan = allSymbols.slice(0, 150); 
         
-        console.log(`Starting parallel scan for ${symbolsToScan.length} symbols...`);
+        console.log(`Starting high-speed scan for ${symbolsToScan.length} symbols...`);
 
-        // Process in batches of 20 to avoid overwhelming the network/API
-        const BATCH_SIZE = 20;
+        // Increase batch size for faster execution
+        const BATCH_SIZE = 50; 
         for (let i = 0; i < symbolsToScan.length; i += BATCH_SIZE) {
             const batch = symbolsToScan.slice(i, i + BATCH_SIZE);
             
