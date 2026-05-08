@@ -1,41 +1,27 @@
-const axios = require("axios");
+const { sendTelegramMessage } = require("../services/telegramService");
 
 module.exports = async (req, res) => {
-  const BOT_TOKEN = process.env.BOT_TOKEN;
-  const CHAT_ID = process.env.CHAT_ID;
+    try {
+        const message = `
+🚨 *TEST SIGNAL (VERCEL FIXED)*
 
-  if (!BOT_TOKEN || !CHAT_ID) {
-    return res.status(500).json({
-      error: "Missing BOT_TOKEN or CHAT_ID in Vercel env variables"
-    });
-  }
+🪙 *Coin:* BTCUSDT
+📊 *Action:* BUY 📈
+💰 *Price:* 65000
+⏰ *Time:* ${new Date().toLocaleString()}
+        `;
 
-  try {
-    const message = `
-🚨 TEST SIGNAL (VERCEL FIXED)
+        await sendTelegramMessage(message);
 
-Coin: BTCUSDT
-Action: BUY 📈
-Price: 65000
-Time: ${new Date().toLocaleString()}
-    `;
+        return res.status(200).json({
+            success: true,
+            message: "Test message sent to Telegram"
+        });
 
-    const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-
-    const response = await axios.post(url, {
-      chat_id: CHAT_ID,
-      text: message
-    });
-
-    return res.status(200).json({
-      success: true,
-      telegram: response.data
-    });
-
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      error: error.message
-    });
-  }
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
 };

@@ -1,4 +1,11 @@
 {
   "version": 2,
-  "cleanUrls": true
+  "cleanUrls": true,
+  "crons": [
+    {
+      "path": "/api/scanner",
+      "schedule": "*/15 * * * *"
+    }
+  ],
+  "maxDuration": 300
 }
